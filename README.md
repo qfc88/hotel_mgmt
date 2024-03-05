@@ -1,4 +1,9 @@
-[![Contributors][contributors-shield]][contributors-url]
+[<h1 align="center">
+  [![Contributors][contributors-shield]][contributors-url]
+  [![Forks][forks-shield]][forks-url]
+  [![Stargazers][stars-shield]][stars-url]
+  [![Issues][issues-shield]][issues-url]
+</h1>
 
 # Introduction
 ## Hotel Management System
@@ -38,3 +43,9 @@ This is a simple app allows visitors to choose their personal profolio and make 
 
 [contributors-shield]: https://img.shields.io/github/contributors/qfc88/hotel_mgmt.svg?style=for-the-badge
 [contributors-url]: https://github.com/qfc88/hotel_mgmt/graphs/contributors
+[issues-shield]: https://img.shields.io/github/issues/qfc88/hotel_mgmt.svg?style=for-the-badge
+[issues-url]: https://github.com/qfc88/hotel_mgmt/issues
+[forks-shield]: https://img.shields.io/github/forks/qfc88/hotel_mgmt.svg?style=for-the-badge
+[forks-url]: https://github.com/qfc88/hotel_mgmt/network/members
+[stars-shield]: https://img.shields.io/github/stars/qfc88/hotel_mgmt.svg?style=for-the-badge
+[stars-url]: https://github.com/qfc88/hotel_mgmt/stargazers
