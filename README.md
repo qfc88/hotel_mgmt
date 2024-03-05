@@ -1,4 +1,4 @@
-
+[![Contributors][contributors-shield]][contributors-url]
 
 # Introduction
 ## Hotel Management System
@@ -21,3 +21,20 @@ This is a simple app allows visitors to choose their personal profolio and make 
 |   8   | Nguyễn Mai Anh Nam    | N/A                                                                      |              |
 
 # Features
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[contributors-shield]: https://img.shields.io/github/contributors/qfc88/hotel_mgmt.svg?style=for-the-badge
+[contributors-url]: https://github.com/qfc88/hotel_mgmt/graphs/contributors
