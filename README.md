@@ -11,7 +11,7 @@ This is a simple app allows visitors to choose their personal profolio and make 
 
 | Order |         Name          |                             Task                                         | Contribution |
 |:-----:|:---------------------:|:------------------------------------------------------------------------:|:------------:|
-|   1   |       Nguyễn Nam      |                                                                          |              |
+|   1   |       Nguyễn Nam      | N/A                                                                      |              |
 |   2   |    Đỗ Minh Hiếu       | N/A                                                                      |              |
 |   3   |  Nguyễn Trần Bảo Khang| N/A                                                                      |              |
 |   4   |    Trần Thanh Phương  | N/A                                                                      |              |
