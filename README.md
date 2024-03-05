@@ -1,4 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
+
 
 # Introduction
 ## Hotel Management System
