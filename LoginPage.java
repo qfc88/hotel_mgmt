@@ -8,7 +8,10 @@
  * @author WOW
  */
 import db.Operation;
+import java.awt.Image;
 import java.sql.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 public class LoginPage extends javax.swing.JFrame{
 
@@ -16,16 +19,17 @@ public class LoginPage extends javax.swing.JFrame{
      * Creates new form LoginPage
      * @param username
      */
-    
+
     public void login(String username, String password){
     try
     {
-        ResultSet rs = Operation.getData("SELECT * FROM Management WHERE User_ID='"+username+"' AND PASSWORD='"+password+"'");
+        ResultSet rs = Operation.getData("SELECT * FROM Management WHERE EmpUsername='"+username+"' AND PASSWORD='"+password+"'");
         while (rs.next()){
-        if ((rs.getString(1).equals(username))&&(rs.getString(4).equals(password)))
+        if ((rs.getString(3).equals(username))&&(rs.getString(4).equals(password)))
     {
         setVisible(false);
-        new Dashboard().setVisible(true);
+        new Dashboard(username).setVisible(true);
+        dispose();
         
         
     } else
@@ -36,6 +40,7 @@ public class LoginPage extends javax.swing.JFrame{
     }
     catch (Exception e){
         JOptionPane.showMessageDialog(null, e);
+
     }
 
     }
@@ -56,11 +61,16 @@ public class LoginPage extends javax.swing.JFrame{
                     {
                         String user = UsernameBox.getText();
                         String pass = PasswordBox.getText();
-                        if ((user=="")||(pass=="")){
+                        if (user==""){
                         javax.swing.JOptionPane.showMessageDialog(null,"<html>"
-                                + "<b style=\"color:red\"> Invalid username or password</b>"
+                                + "<b style=\"color:red\"> Username cannot be blank</b>"
                                 + "</html>","Message",JOptionPane.ERROR_MESSAGE);
                                 
+                        }
+                        else if (pass==""){
+                                                javax.swing.JOptionPane.showMessageDialog(null,"<html>"
+                                + "<b style=\"color:red\"> Password cannot be blank</b>"
+                                + "</html>","Message",JOptionPane.ERROR_MESSAGE);
                         }
                         else
                 {

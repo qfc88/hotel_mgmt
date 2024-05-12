@@ -7,22 +7,64 @@
  *
  * @author WOW
  */
+import db.Operation;
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import db.connectdb;
+
 public class Dashboard extends javax.swing.JFrame {
 
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    
+    private String staff = null;
+    public Dashboard(){
         setUndecorated(true);
-        initComponents();
-        Exit.addMouseListener(new java.awt.event.MouseAdapter()
+    initComponents();
+    Exit.addMouseListener(new java.awt.event.MouseAdapter()
                 {
                     public void mouseClicked(java.awt.event.MouseEvent e)
                 {
                     dispose();
+                }
+                }
+        
+        );
+    }
+    public String getName(String username) throws SQLException{
+        ResultSet rs = Operation.getData("SELECT Employee.LastName FROM HMS.Employee WHERE Employee.EmployeeID IN (SELECT EmployeeID FROM Management WHERE EmpUsername = '"+staff+"') ");
+        String temp = null;
+        while (rs.next())
+        temp = rs.getString(1);
+
+    return temp;
+}
+    public void setEnableBtn(){
+        ManageEmployee.setEnabled(true);
+    }
+    public Dashboard(String username) {
+        setUndecorated(true);
+        initComponents();
+        this.staff = username;
+        try {
+            Name.setText(getName(username));
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Booking.setEnabled(false);
+        //Room.setEnabled(false);
+        Payment.setEnabled(false);
+        
+        Exit.addMouseListener(new java.awt.event.MouseAdapter()
+                {
+                    public void mouseClicked(java.awt.event.MouseEvent e)
+                {
+                    System.exit(0);
                 }
                 }
         
@@ -53,6 +95,7 @@ public class Dashboard extends javax.swing.JFrame {
         NumCustomer = new javax.swing.JLabel();
         Roomleft = new javax.swing.JLabel();
         NumEmployee = new javax.swing.JLabel();
+        Name = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -75,6 +118,11 @@ public class Dashboard extends javax.swing.JFrame {
         ManageEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ManageEmployeeActionPerformed(evt);
+            }
+        });
+        ManageEmployee.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ManageEmployeeKeyReleased(evt);
             }
         });
 
@@ -128,6 +176,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         NumEmployee.setText("Employee:");
 
+        Name.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout InformationLayout = new javax.swing.GroupLayout(Information);
         Information.setLayout(InformationLayout);
         InformationLayout.setHorizontalGroup(
@@ -139,15 +189,22 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(Roomleft, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NumCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Book, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InformationLayout.createSequentialGroup()
+                        .addComponent(Welcome)
+                        .addGap(18, 18, 18)
+                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         InformationLayout.setVerticalGroup(
             InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InformationLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(Welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(25, 25, 25)
+                .addGroup(InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InformationLayout.createSequentialGroup()
+                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
+                .addGap(20, 20, 20)
                 .addComponent(Book, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NumCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,11 +278,8 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ManageEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManageEmployeeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ManageEmployeeActionPerformed
-
     private void RoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomActionPerformed
+        new RoomType().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_RoomActionPerformed
 
@@ -234,8 +288,21 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_PaymentActionPerformed
 
     private void BookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingActionPerformed
-        // TODO add your handling code here:
+         new ManageBooking().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_BookingActionPerformed
+
+    private void ManageEmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ManageEmployeeKeyReleased
+        //Employee().setVisible(true);    
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_ManageEmployeeKeyReleased
+
+    private void ManageEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManageEmployeeActionPerformed
+            
+        //ManageEmp emp = new ManageEmp();
+        new ManageEmp().setVisible(true);
+        //emp.setVisible(true);
+        //ManageEmployee.setEnabled(false);// TODO add your handling code here:
+    }//GEN-LAST:event_ManageEmployeeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,6 +347,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel Exit;
     private javax.swing.JPanel Information;
     private javax.swing.JButton ManageEmployee;
+    private javax.swing.JLabel Name;
     private javax.swing.JLabel NumCustomer;
     private javax.swing.JLabel NumEmployee;
     private javax.swing.JButton Payment;
@@ -288,4 +356,5 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel Welcome;
     private javax.swing.Box.Filler filler1;
     // End of variables declaration//GEN-END:variables
+
 }

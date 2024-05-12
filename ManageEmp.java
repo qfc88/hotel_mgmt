@@ -1,11 +1,16 @@
 
 import db.Operation;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,12 +30,13 @@ public class ManageEmp extends javax.swing.JFrame {
     public int getRow(){
         return row;
     }
+    
     /**
      * Creates new form Employee
      */
     private void DisplayEmp(){
         try{
-            ResultSet rs = Operation.getData("SELECT EmployeeID, FirstName, MiddleName, LastName, Role, DateOfBirth, Phone, Email FROM HMS.Employee");
+            ResultSet rs = Operation.getData("SELECT EmployeeID, FirstName, MiddleName, LastName, Role, DateOfBirth, HireDate, Phone, Email FROM HMS.Employee");
             EmpTable.setModel(DbUtils.resultSetToTableModel(rs));
         }
         catch (Exception e){
@@ -44,11 +50,15 @@ public class ManageEmp extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         DisplayEmp();
+        AddEmployeeDialog.setLocationRelativeTo(null);
+        ModifyEmp.setLocationRelativeTo(null);
          CloseButton.addMouseListener(new java.awt.event.MouseAdapter()
                 {
                     public void mouseClicked(java.awt.event.MouseEvent e)
                 {
+                    
                     dispose();
+                   
                 }
                 }
         
@@ -76,14 +86,14 @@ public class ManageEmp extends javax.swing.JFrame {
         FNameBox = new javax.swing.JTextField();
         MNameBox = new javax.swing.JTextField();
         LNameBox = new javax.swing.JTextField();
-        DOBchoosing = new javax.swing.JTextField();
-        HireDateBox = new javax.swing.JTextField();
         EmailBox = new javax.swing.JTextField();
         PhoneBox = new javax.swing.JTextField();
         AddEmpBtn = new javax.swing.JButton();
         ClearText = new javax.swing.JButton();
         CloseBtn = new javax.swing.JButton();
         RoleSelect = new javax.swing.JComboBox<>();
+        DOBchoosing = new com.toedter.calendar.JDateChooser();
+        HireDateBox = new com.toedter.calendar.JDateChooser();
         ModifyEmp = new javax.swing.JDialog();
         FName1 = new javax.swing.JLabel();
         MName1 = new javax.swing.JLabel();
@@ -95,13 +105,15 @@ public class ManageEmp extends javax.swing.JFrame {
         FNameBox1 = new javax.swing.JTextField();
         MNameBox1 = new javax.swing.JTextField();
         LNameBox1 = new javax.swing.JTextField();
-        DOBchoosing1 = new javax.swing.JTextField();
         EmailBox1 = new javax.swing.JTextField();
         PhoneBox1 = new javax.swing.JTextField();
         RoleSelect1 = new javax.swing.JComboBox<>();
         SaveEmpBtn1 = new javax.swing.JButton();
         ClearText1 = new javax.swing.JButton();
         CloseBtn1 = new javax.swing.JButton();
+        DOBchoosing1 = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        HireDateBox1 = new com.toedter.calendar.JDateChooser();
         empBG2 = new EmpBG();
         AddEmployee = new javax.swing.JButton();
         CloseButton = new javax.swing.JLabel();
@@ -110,6 +122,9 @@ public class ManageEmp extends javax.swing.JFrame {
         RemoveEmpBtn = new javax.swing.JButton();
         Modify = new javax.swing.JButton();
 
+        AddEmployeeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        AddEmployeeDialog.setTitle("Add Employee");
+        AddEmployeeDialog.setLocation(new java.awt.Point(500, 300));
         AddEmployeeDialog.setResizable(false);
         AddEmployeeDialog.setSize(new java.awt.Dimension(340, 500));
         AddEmployeeDialog.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -157,6 +172,10 @@ public class ManageEmp extends javax.swing.JFrame {
 
         RoleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Receptionist", "Chef", "Waiter", "Housekeeping", "Reservation", "Bell man" }));
 
+        DOBchoosing.setDateFormatString("yyyy-MM-dd");
+
+        HireDateBox.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout AddEmployeeDialogLayout = new javax.swing.GroupLayout(AddEmployeeDialog.getContentPane());
         AddEmployeeDialog.getContentPane().setLayout(AddEmployeeDialogLayout);
         AddEmployeeDialogLayout.setHorizontalGroup(
@@ -175,22 +194,22 @@ public class ManageEmp extends javax.swing.JFrame {
                     .addComponent(AddEmpBtn))
                 .addGroup(AddEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AddEmployeeDialogLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(ClearText)
+                        .addGap(18, 18, 18)
+                        .addComponent(CloseBtn)
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addGroup(AddEmployeeDialogLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(AddEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(FNameBox)
                             .addComponent(MNameBox)
                             .addComponent(LNameBox)
-                            .addComponent(DOBchoosing)
-                            .addComponent(HireDateBox)
                             .addComponent(EmailBox)
                             .addComponent(RoleSelect, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(PhoneBox)))
-                    .addGroup(AddEmployeeDialogLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(ClearText)
-                        .addGap(18, 18, 18)
-                        .addComponent(CloseBtn)
-                        .addGap(0, 2, Short.MAX_VALUE)))
+                            .addComponent(PhoneBox)
+                            .addComponent(DOBchoosing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(HireDateBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(51, 51, 51))
         );
         AddEmployeeDialogLayout.setVerticalGroup(
@@ -213,11 +232,11 @@ public class ManageEmp extends javax.swing.JFrame {
                     .addComponent(Role)
                     .addComponent(RoleSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(AddEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(AddEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DOB)
                     .addComponent(DOBchoosing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(AddEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(AddEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(HireDate)
                     .addComponent(HireDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -236,6 +255,7 @@ public class ManageEmp extends javax.swing.JFrame {
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
+        ModifyEmp.setTitle("Modify Information");
         ModifyEmp.setResizable(false);
         ModifyEmp.setSize(new java.awt.Dimension(340, 500));
 
@@ -276,6 +296,12 @@ public class ManageEmp extends javax.swing.JFrame {
             }
         });
 
+        DOBchoosing1.setDateFormatString("yyyy-MM-dd");
+
+        jLabel1.setText("Hire Date");
+
+        HireDateBox1.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout ModifyEmpLayout = new javax.swing.GroupLayout(ModifyEmp.getContentPane());
         ModifyEmp.getContentPane().setLayout(ModifyEmpLayout);
         ModifyEmpLayout.setHorizontalGroup(
@@ -283,32 +309,38 @@ public class ManageEmp extends javax.swing.JFrame {
             .addGroup(ModifyEmpLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FName1)
-                    .addComponent(MName1)
-                    .addComponent(LName1)
-                    .addComponent(Role1)
-                    .addComponent(DOB1)
-                    .addComponent(Phone1)
-                    .addComponent(Email1)
-                    .addComponent(SaveEmpBtn1))
-                .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ModifyEmpLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(ModifyEmpLayout.createSequentialGroup()
                         .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(FNameBox1)
-                            .addComponent(MNameBox1)
-                            .addComponent(LNameBox1)
-                            .addComponent(DOBchoosing1)
-                            .addComponent(EmailBox1)
-                            .addComponent(RoleSelect1, 0, 148, Short.MAX_VALUE)
-                            .addComponent(PhoneBox1))
-                        .addGap(51, 51, 51))
-                    .addGroup(ModifyEmpLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(ClearText1)
-                        .addGap(18, 18, 18)
-                        .addComponent(CloseBtn1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(FName1)
+                            .addComponent(MName1)
+                            .addComponent(LName1)
+                            .addComponent(Role1)
+                            .addComponent(DOB1)
+                            .addComponent(Phone1)
+                            .addComponent(Email1)
+                            .addComponent(SaveEmpBtn1))
+                        .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ModifyEmpLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(ClearText1)
+                                .addGap(18, 18, 18)
+                                .addComponent(CloseBtn1)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(ModifyEmpLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(FNameBox1)
+                                    .addComponent(MNameBox1)
+                                    .addComponent(LNameBox1)
+                                    .addComponent(EmailBox1)
+                                    .addComponent(RoleSelect1, 0, 148, Short.MAX_VALUE)
+                                    .addComponent(PhoneBox1)
+                                    .addComponent(DOBchoosing1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(HireDateBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(51, 51, 51))))))
         );
         ModifyEmpLayout.setVerticalGroup(
             ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,9 +362,13 @@ public class ManageEmp extends javax.swing.JFrame {
                     .addComponent(Role1)
                     .addComponent(RoleSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(DOB1)
                     .addComponent(DOBchoosing1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(HireDateBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Phone1)
@@ -341,12 +377,12 @@ public class ManageEmp extends javax.swing.JFrame {
                 .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Email1)
                     .addComponent(EmailBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGap(31, 31, 31)
                 .addGroup(ModifyEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SaveEmpBtn1)
                     .addComponent(ClearText1)
                     .addComponent(CloseBtn1))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -380,16 +416,9 @@ public class ManageEmp extends javax.swing.JFrame {
                 "ID", "First Name", "Middle Name", "Last Name", "Role", "Date Of Birth", "Phone", "Email"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -404,7 +433,7 @@ public class ManageEmp extends javax.swing.JFrame {
             }
         });
         EmpPane.setViewportView(EmpTable);
-        EmpTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        EmpTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         RemoveEmpBtn.setText("Remove Employee");
         RemoveEmpBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -487,11 +516,15 @@ public class ManageEmp extends javax.swing.JFrame {
 
     private void AddEmpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmpBtnActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
+        
         Operation.setOrDel("insert into HMS.Employee (FirstName, MiddleName, LastName, Role, DateOfBirth, HireDate, Phone, Email)"
                 + " values ('"+FNameBox.getText()+"','"+MNameBox.getText()+"','"+LNameBox.getText()+"','"
-        +RoleSelect.getSelectedItem()+ "','"+DOBchoosing.getText()+"','"+HireDateBox.getText()+"','"
-        +EmailBox.getText()+"','"+PhoneBox.getText()+"')", "Add Employee Successfully!");
+        +RoleSelect.getSelectedItem()+ "','"+formatter.format(DOBchoosing.getDate())+"','"+formatter.format(HireDateBox.getDate())+"','"
+        +PhoneBox.getText()+"','"+EmailBox.getText()+"')", "Add Employee Successfully!");
+        
         DisplayEmp();
+        
     }//GEN-LAST:event_AddEmpBtnActionPerformed
 
     private void ClearTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearTextActionPerformed
@@ -499,8 +532,8 @@ public class ManageEmp extends javax.swing.JFrame {
         MNameBox.setText("");
         LNameBox.setText("");
         RoleSelect.setSelectedIndex(0);
-        DOBchoosing.setText("");
-        HireDateBox.setText("");
+        DOBchoosing.setDate(null);
+        HireDateBox.setDate(null);
         EmailBox.setText("");
         PhoneBox.setText("");
         // TODO add your handling code here:
@@ -511,8 +544,8 @@ public class ManageEmp extends javax.swing.JFrame {
         MNameBox.setText("");
         LNameBox.setText("");
         RoleSelect.setSelectedIndex(0);
-        DOBchoosing.setText("");
-        HireDateBox.setText("");
+        DOBchoosing.setDate(null);
+        HireDateBox.setDate(null);
         EmailBox.setText("");
         PhoneBox.setText("");    
         AddEmployeeDialog.setVisible(false);// TODO add your handling code here:
@@ -539,31 +572,6 @@ public class ManageEmp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RemoveEmpBtnActionPerformed
     String[] RoleList = new String[]{"Receptionist", "Chef", "Waiter", "Housekeeping", "Reservation","Bell man"};
-    private void EmpTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmpTableMouseClicked
-            int row = EmpTable.getSelectedRow();
-            DefaultTableModel model = (DefaultTableModel)EmpTable.getModel();
-            String a = model.getValueAt(row, 4).toString();
-            if (!a.equals("manager")){
-                if (!a.equals("culi"))
-                {
-            
-            FNameBox1.setText(model.getValueAt(row, 1).toString());
-            MNameBox1.setText(model.getValueAt(row, 2).toString());
-            LNameBox1.setText(model.getValueAt(row, 3).toString());
-            DOBchoosing1.setText(model.getValueAt(row, 5).toString());
-            PhoneBox1.setText(model.getValueAt(row, 6).toString());
-            EmailBox1.setText(model.getValueAt(row, 7).toString());
-            int RoleIndex = Arrays.asList(RoleList).indexOf(a);
-            RoleSelect1.setSelectedIndex(RoleIndex);
-            SaveEmpBtn1.setEnabled(true);
-            }
-                else SaveEmpBtn1.setEnabled(false);
-            }
-            else SaveEmpBtn1.setEnabled(false);
-            setRow(row);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmpTableMouseClicked
-
     private void ModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyActionPerformed
         
         ModifyEmp.setVisible(true);
@@ -573,12 +581,14 @@ public class ManageEmp extends javax.swing.JFrame {
 
     private void SaveEmpBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveEmpBtn1ActionPerformed
         DefaultTableModel model = (DefaultTableModel)EmpTable.getModel();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Operation.setOrDel("UPDATE HMS.Employee SET "
                 + "FirstName='"+FNameBox1.getText()+"',"
                 + "MiddleName='"+MNameBox1.getText()+"',"
                 + "LastName='"+LNameBox1.getText()+"',"
                 + "Role='"+RoleSelect1.getSelectedItem()+"',"
-                + "DateOfBirth='"+DOBchoosing1.getText()+"',"      
+                + "DateOfBirth='"+formatter.format(DOBchoosing1.getDate())+"'," 
+                + "HireDate='"+formatter.format(HireDateBox1.getDate())+"'," 
                 + "Phone='"+PhoneBox1.getText()+"',"  
                 + "Email='"+EmailBox1.getText()+"' "
                         + "WHERE EmployeeID="+model.getValueAt(row, 0)
@@ -593,7 +603,8 @@ public class ManageEmp extends javax.swing.JFrame {
         MNameBox1.setText("");
         LNameBox1.setText("");
         RoleSelect1.setSelectedIndex(0);
-        DOBchoosing1.setText("");
+        DOBchoosing1.setDate(null);
+        HireDateBox1.setDate(null);
         EmailBox1.setText("");
         PhoneBox1.setText(""); 
 
@@ -603,6 +614,32 @@ public class ManageEmp extends javax.swing.JFrame {
     private void CloseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseBtn1ActionPerformed
         ModifyEmp.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_CloseBtn1ActionPerformed
+
+    private void EmpTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmpTableMouseClicked
+        int row = EmpTable.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel)EmpTable.getModel();
+        String a = model.getValueAt(row, 4).toString();
+        if (!a.equals("manager")){
+            if (!a.equals("culi"))
+            {
+
+                FNameBox1.setText(model.getValueAt(row, 1).toString());
+                MNameBox1.setText(model.getValueAt(row, 2).toString());
+                LNameBox1.setText(model.getValueAt(row, 3).toString());
+                DOBchoosing1.setDate((Date)model.getValueAt(row, 5));
+                HireDateBox1.setDate((Date)model.getValueAt(row, 6));
+                PhoneBox1.setText(model.getValueAt(row, 7).toString());
+                EmailBox1.setText(model.getValueAt(row, 8).toString());
+                int RoleIndex = Arrays.asList(RoleList).indexOf(a);
+                RoleSelect1.setSelectedIndex(RoleIndex);
+                SaveEmpBtn1.setEnabled(true);
+            }
+            else SaveEmpBtn1.setEnabled(false);
+        }
+        else SaveEmpBtn1.setEnabled(false);
+        setRow(row);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmpTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -651,8 +688,8 @@ public class ManageEmp extends javax.swing.JFrame {
     private javax.swing.JLabel CloseButton;
     private javax.swing.JLabel DOB;
     private javax.swing.JLabel DOB1;
-    private javax.swing.JTextField DOBchoosing;
-    private javax.swing.JTextField DOBchoosing1;
+    private com.toedter.calendar.JDateChooser DOBchoosing;
+    private com.toedter.calendar.JDateChooser DOBchoosing1;
     private javax.swing.JLabel Email;
     private javax.swing.JLabel Email1;
     private javax.swing.JTextField EmailBox;
@@ -664,7 +701,8 @@ public class ManageEmp extends javax.swing.JFrame {
     private javax.swing.JTextField FNameBox;
     private javax.swing.JTextField FNameBox1;
     private javax.swing.JLabel HireDate;
-    private javax.swing.JTextField HireDateBox;
+    private com.toedter.calendar.JDateChooser HireDateBox;
+    private com.toedter.calendar.JDateChooser HireDateBox1;
     private javax.swing.JLabel LName;
     private javax.swing.JLabel LName1;
     private javax.swing.JTextField LNameBox;
@@ -686,5 +724,6 @@ public class ManageEmp extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> RoleSelect1;
     private javax.swing.JButton SaveEmpBtn1;
     private EmpBG empBG2;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
