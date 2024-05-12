@@ -19,7 +19,6 @@ CREATE TABLE RoomType (
 
 CREATE TABLE Room (
     RoomNumber INT PRIMARY KEY not null auto_increment,
-    HotelID INT,
     TypeID INT,
     Status VARCHAR(20),
     FOREIGN KEY (TypeID) REFERENCES RoomType(TypeID)
@@ -40,12 +39,10 @@ CREATE TABLE Employee (
 	FOREIGN KEY (HotelID) REFERENCES Hotel(HotelID)
 );
 
-
 CREATE TABLE Management(
 	MID INT PRIMARY KEY not null auto_increment,
     EmployeeID INT NOT NULL,
 	EmpUsername VARCHAR(10),
-    NAME VARCHAR(10) NOT NULL,
     PASSWORD VARCHAR(64) NOT NULL,
     FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 );
@@ -60,13 +57,12 @@ CREATE TABLE User(
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY not null auto_increment,
     UID INT NOT NULL,
-    FirstName VARCHAR(25) NOT NULL,
-	MiddleName VARCHAR(25),
-    LastName VARCHAR(25) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
     DateOfBirth DATE,
-    Address VARCHAR(100),
-    Phone VARCHAR(15),
-    Email VARCHAR(100),
+    Address VARCHAR(70),
+    Email VARCHAR(70),
+    Country VARCHAR(20),
+	Phone VARCHAR(15),
     FOREIGN KEY (UID) REFERENCES User(UID)
 );
 
@@ -76,9 +72,10 @@ CREATE TABLE Booking (
     RoomNumber INT NOT NULL,
     CheckinDate DATE,
     CheckoutDate DATE,
+    NoOfDays INT,
+    Status VARCHAR(10),
     TotalPrice DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
-    FOREIGN KEY (RoomNumber) REFERENCES Room(RoomNumber)
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
 
  CREATE TABLE Payment (
@@ -89,6 +86,5 @@ CREATE TABLE Booking (
     PaymentMethod VARCHAR(50),
     FOREIGN KEY (BookingID) REFERENCES Booking(BookingID)
 );
-
 
 
