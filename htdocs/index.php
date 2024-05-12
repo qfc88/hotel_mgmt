@@ -9,12 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./fav/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./fav/favicon-16x16.png">
-    <link rel="manifest" href="./fav/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
+    <link rel="manifest" href="fav/site.webmanifest">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="css/home.css">
     <title>HCMIU Hotel</title>
     <!-- boot -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="./admin/css/roombook.css">
+    <link rel="stylesheet" href="css/roombook.css">
     <style>
       #guestdetailpanel{
         display: none;
@@ -40,8 +40,8 @@
     </style>
     <!-- Add map-->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./javascript/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="module" src="javascript/index.js"></script>
 </head>
 <body>
   <nav>
@@ -179,16 +179,17 @@
 
         <!-- ==== room book php ====-->
         <?php       
+
+                
         
             if (isset($_POST['guestdetailsubmit'])) 
             {   
-                $UserID = $_SESSION['userid'];
-                $FName = $_POST['FirstName'];
-                $MName = $_POST['MiddleName'];
-                $LName = $_POST['LastName'];
+                $Name = $_POST['Name'];
                 $Email = $_POST['Email'];
                 $Country = $_POST['Country'];
+                $Birth = $_POST['dob'];
                 $Phone = $_POST['Phone'];
+                $Address = $_POST['Address'];
                 $RoomType = $_POST['RoomType'];
                 $Bed = $_POST['Bed'];
                 $cin = $_POST['cin'];
@@ -215,17 +216,30 @@
                       $uid = $row["UID"];
                       $_SESSION["UID"] = $uid;
                     }
+                    
+                    $RoomBed = (int)$Bed;
+                  
+                    $sql = sprintf("SELECT Room.RoomNumber FROM Room, RoomType WHERE Room.Status='Ready' AND RoomType.Name='$RoomType' AND Room.TypeID=RoomType.TypeID AND RoomType.Capacity=(%d)", $Bed);     
+                    $result = mysqli_query($conn, $sql);
+                    
+
+                      if (mysqli_num_rows($result) > 0 ){ 
+                        $row = mysqli_fetch_assoc($result);
+                        $uid = $row["RoomNumber"];
+                        $RoomAvailable = (int)$uid;
 //
 
-                  $sta = "Pending";
-                  mysqli_query($conn, "SET AUTOCOMMIT=0");
-                  mysqli_query($conn,"START TRANSACTION");
-                  mysqli_query($con,"INSERT INTO Customer VALUES ('', '$FName', '$MName', '$LName', '$fname', '$lname', '$domain', '$address1', '$address2', '$city', '$country', '$region', '$zip', '$phone', '$getplan', '$duration', '$getprice', '', '0', '0', '$code', '$date', '$time','0', '', '')");
-                  mysqli_query($con,"INSERT INTO domains (username) VALUES ('$getuser')");
-                  //$result = mysqli_query($conn, $sql);
+                $sta = "Pending";
 
-                  
-                  if($mysqli_commit($conn))
+                $getUID = $_SESSION['UID'];
+                $result2=mysqli_query($conn,"INSERT INTO Customer (UID,Name, DateOfBirth, Address, Email, Country, Phone) VALUES ($getUID, '$Name', '$Birth', '$Address', '$Email', '$Country', '$Phone')");
+                $getcid = mysqli_query($conn,"SELECT CustomerID FROM Customer WHERE Email = '$Email' AND Phone = '$Phone'");
+                $cid = mysqli_fetch_assoc($getcid);
+                $nocid = (int)$cid['CustomerID'];
+                $result3=mysqli_query($conn,"INSERT INTO Booking (CustomerID,RoomNumber,CheckinDate,CheckoutDate,NoOfDays,Status) VALUES ($nocid,'$RoomAvailable','$cin','$cout',datediff('$cout','$cin'),'$sta')");
+                //$result = mysqli_query($conn, $sql);
+                
+                  if($result2 && $result3)
                     {
                       echo "<script>swal({
                           title: 'Reservation successful',
@@ -234,19 +248,42 @@
                       });
                       
                       </script>";
+                   
                      } 
 
                     else {
                       echo "<script>swal({
                         title: 'Something went wrong',
-                        icon: 'error',
+                        icon: 'error'
                     });
                       </script>";
+                     
                     }
-                    $mysqli->query('SET AUTOCOMMIT = 1');
+                
+                   // $mysqli->query('SET AUTOCOMMIT = 1');
+                  }
+                  else {
+                    echo "<script>swal({
+                      title: 'This room is not available. Please select another room type',
+                      icon: 'error',
+                  });
+                  </script>";
+                }
+                      
+                }      
+                else {
+                  echo "<script>swal({
+                    title: 'Not available. Please select another room type and capacity.',
+                    icon: 'error',
+                });
+                </script>";
+              }
+
+              
           }
           }
-        }
+        
+        
             ?>
           </div>
 
