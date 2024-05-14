@@ -223,16 +223,17 @@
                     $result = mysqli_query($conn, $sql);
                     
 
-                      if (mysqli_num_rows($result) > 0 ){ 
+                      if (mysqli_num_rows($result) > 0 )
+                      { 
                         $row = mysqli_fetch_assoc($result);
                         $uid = $row["RoomNumber"];
                         $RoomAvailable = (int)$uid;
 //
 
                 $sta = "Pending";
-
+                        
                 $getUID = $_SESSION['UID'];
-                $result2=mysqli_query($conn,"INSERT INTO Customer (UID,Name, DateOfBirth, Address, Email, Country, Phone) VALUES ($getUID, '$Name', '$Birth', '$Address', '$Email', '$Country', '$Phone')");
+                $result2=mysqli_query($conn,"INSERT INTO Customer (UID, CName, DateOfBirth, Address, Email, Country, Phone) VALUES ($getUID, '$Name', '$Birth', '$Address', '$Email', '$Country', '$Phone')");
                 $getcid = mysqli_query($conn,"SELECT CustomerID FROM Customer WHERE Email = '$Email' AND Phone = '$Phone'");
                 $cid = mysqli_fetch_assoc($getcid);
                 $nocid = (int)$cid['CustomerID'];

@@ -34,15 +34,13 @@ include 'config.php';
             <div class="middle">
                 <div class="guestinfo">
                     <h4>Guest information</h4>
-                    <input type="text" name="Name" placeholder="First Name" required>
-                    <input type="text" name="Name" placeholder="Middle Name(optional)" required>
-                    <input type="text" name="Name" placeholder="Last Name" required>
+                    <input type="text" name="Name" placeholder="Your Full Name" required>
                     <input type="email" name="Email" placeholder="Email" required>
 
                     <?php
                     $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe");
                     ?>
-
+                    <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                     <select name="Country" class="selectinput" required>
 						<option value selected >Select your country</option>
                         <?php
@@ -52,6 +50,9 @@ include 'config.php';
 							endforeach;
 						?>
                     </select>
+                    <label>&nbsp</label>
+                    <label>Birth</label><label>&nbsp</label>
+                    <input type ="date" name="dob" placeholder="Date Of Birth">  </div>
                     <input type="text" name="Phone" placeholder="Phone" required>
                 </div>
 
@@ -60,25 +61,20 @@ include 'config.php';
                 <div class="reservationinfo">
                     <h4>Reservation information</h4>
                     <select name="RoomType" class="selectinput">
-						<option value selected >Type Of Room</option>
+                    <option value selected>Type Of Room</option>
                         <option value="Superior Room">SUPERIOR ROOM</option>
                         <option value="Deluxe Room">DELUXE ROOM</option>
-						<option value="Guest House">GUEST HOUSE</option>
+						<option value="Queen Room">QUEEN ROOM</option>
 						<option value="Single Room">SINGLE ROOM</option>
+                        <option value="Studio Room">STUDIO ROOM</option>
+                    </select>
                     </select>
                     <select name="Bed" class="selectinput">
-						<option value selected >Bedding Type</option>
-                        <option value="Single">Single</option>
-                        <option value="Double">Double</option>
-						<option value="Triple">Triple</option>
-                        <option value="Quad">Quad</option>
-						<option value="None">None</option>
-                    </select>
-                    <select name="NoofRoom" class="selectinput">
-						<option value selected >No of Room</option>
+						<option value selected >Capacity</option>
                         <option value="1">1</option>
-                        <!-- <option value="1">2</option>
-                        <option value="1">3</option> -->
+                        <option value="2">2</option>
+						<option value="3">3</option>
+                        <option value="4">4</option>
                     </select>
                     <div class="datesection">
                         <span>
@@ -100,9 +96,7 @@ include 'config.php';
         <!-- ==== room book php ====-->
         <?php       
             if (isset($_POST['guestdetailsubmit'])) {
-                $FName=$_POST['FirstName'];
-                $MName=$_POST['MiddleName'];
-                $LName=$_POST['LastName'];
+                $Name=$_POST['Name'];
                 $Email = $_POST['Email'];
                 $Country = $_POST['Country'];
                 $Phone = $_POST['Phone'];
@@ -120,53 +114,19 @@ include 'config.php';
                 }
                 else{
                     $sta = "Pending";
+                    //mysqli_query = ($conn,"SELECT * FROM Customer WHERE Email = '$Email'");
                     $sql = "INSERT INTO Booking(FirstName,MiddleName,LastName,Email,Country,Phone,RoomType,Bed,NoofRoom,cin,cout,stat,nodays) VALUES ('$FName','$MName','$LName','$Email','$Country','$Phone','$RoomType','$Bed','$cin','$cout','$sta',datediff('$cout','$cin'))";
                     $result = mysqli_query($conn, $sql);
-
-                    // if($f1=="NO")
-                    // {
-                    //     echo "<script>swal({
-                    //         title: 'Superior Room is not available',
-                    //         icon: 'error',
-                    //     });
-                    //     </script>";
-                    // }
-                    // else if($f2=="NO")
-                    // {
-                    //     echo "<script>swal({
-                    //         title: 'Guest House is not available',
-                    //         icon: 'error',
-                    //     });
-                    //     </script>";
-                    // }
-                    // else if($f3 == "NO")
-                    // {
-                    //     echo "<script>swal({
-                    //         title: 'Si Room is not available',
-                    //         icon: 'error',
-                    //     });
-                    //     </script>";
-                    // }
-                    // else if($f4 == "NO")
-                    // {
-                    //     echo "<script>swal({
-                    //         title: 'Deluxe Room is not available',
-                    //         icon: 'error',
-                    //     });
-                    //     </script>";
-                    // }
-                    // else if($result = mysqli_query($conn, $sql))
-                    // {
                         if ($result) {
                             echo "<script>swal({
                                 title: 'Reservation successful',
-                                icon: 'success',
+                                icon: 'success'
                             });
                         </script>";
                         } else {
                             echo "<script>swal({
                                     title: 'Something went wrong',
-                                    icon: 'error',
+                                    icon: 'error'
                                 });
                         </script>";
                         }
@@ -180,25 +140,39 @@ include 'config.php';
     <!-- ================================================= -->
     <div class="searchsection">
         <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
-        <button class="adduser" id="adduser" onclick="adduseropen()"><i class="fa-solid fa-bookmark"></i> Add</button>
-        <form action="./exportdata.php" method="post">
-            <button class="exportexcel" id="exportexcel" name="exportexcel" type="submit"><i class="fa-solid fa-file-arrow-down"></i></button>
-        </form>
+<!-- <button class="adduser" id="adduser" onclick="adduseropen()"><i class="fa-solid fa-bookmark"></i> Add</button> -->
+
     </div>
 
     <div class="roombooktable" class="table-responsive-xl">
         <?php
-            $roombooktablesql = "SELECT * FROM Booking";
+        if (isset($_SESSION['usermail'])){
+            $sql = "SELECT UID FROM User WHERE email= '".$_SESSION['usermail']."'";     
+            $result = mysqli_query($conn, $sql) or 
+            die(mysql_error($conn)); 
+ 
+            if (!$result) die('Query failed: ' . mysqli_error($conn)); 
+ 
+            if (mysqli_num_rows($result) > 0 ){ 
+              $row = mysqli_fetch_assoc($result);
+              $uid = $row["UID"];
+              $_SESSION["UID"] = $uid;
+            }
+        }
+            $s_uid = (int)$_SESSION["UID"];
+            $roombooktablesql = "SELECT Booking.BookingID, Customer.CName, Customer.Email, Customer.Country, Customer.Phone, Customer.Address, RoomType.Name, RoomType.Capacity, Booking.CheckinDate, Booking.CheckoutDate, Booking.NoOfDays, Booking.Status FROM Booking, Customer, Room, RoomType WHERE Booking.CustomerID = Customer.CustomerID AND Customer.UID = $s_uid AND Booking.RoomNumber = Room.RoomNumber AND Room.TypeID = RoomType.TypeID";
             $roombookresult = mysqli_query($conn, $roombooktablesql);
             $nums = mysqli_num_rows($roombookresult);
         ?>
         <table class="table table-bordered" id="table-data">
             <thead>
                 <tr>
+                    <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Country</th>
                     <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Type of Room</th>
                     <th scope="col">Type of Bed</th>
                     <th scope="col">Check-In</th>
@@ -215,30 +189,30 @@ include 'config.php';
             while ($res = mysqli_fetch_array($roombookresult)) {
             ?>
                 <tr>
-                    <td><?php echo $res['id'] ?></td>
-                    <td><?php echo $res['Name'] ?></td>
+                    <td><?php echo $res['BookingID'] ?></td>
+                    <td><?php echo $res['CName'] ?></td>
                     <td><?php echo $res['Email'] ?></td>
                     <td><?php echo $res['Country'] ?></td>
                     <td><?php echo $res['Phone'] ?></td>
-                    <td><?php echo $res['RoomType'] ?></td>
-                    <td><?php echo $res['Bed'] ?></td>
-                    <td><?php echo $res['cin'] ?></td>
-                    <td><?php echo $res['cout'] ?></td>
-                    <td><?php echo $res['nodays'] ?></td>
-                    <td><?php echo $res['stat'] ?></td>
+                    <td><?php echo $res['Address'] ?></td>
+                    <td><?php echo $res['Name'] ?></td>
+                    <td><?php echo $res['Capacity'] ?></td>
+                    <td><?php echo $res['CheckinDate'] ?></td>
+                    <td><?php echo $res['CheckoutDate'] ?></td>
+                    <td><?php echo $res['NoOfDays'] ?></td>
+                    <td><?php echo $res['Status'] ?></td>
                     <td class="action">
                         <?php
-                            if($res['stat'] == "Confirm")
+                            if($res['Status'] == "Confirm")
                             {
                                 echo " ";
                             }
                             else
                             {
-                                echo "<a href='roombookedit.php?id=". $res['id'] ."'><button class='btn btn-primary'>Edit</button></a>";
+                                echo "<a href='roombookdelete.php?id=". $res['BookingID'] ."''><button class='btn btn-danger'>Cancel</button></a>";
                             }
                         ?>
-                        <a href="roombookedit.php?id=<?php echo $res['id'] ?>"><button class="btn btn-primary">Edit</button></a>
-                        <a href="roombookdelete.php?id=<?php echo $res['id'] ?>"><button class='btn btn-danger'>Request to cancel</button></a>
+                        
                     </td>
                 </tr>
             <?php

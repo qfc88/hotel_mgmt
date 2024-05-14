@@ -39,8 +39,10 @@ if($usermail == true){
     <!-- nav bar -->
     <nav class="uppernav">
         <div class="logo">
-            <img class="hcmiulogo" src="image/hcmiulogo.png" alt="logo">
-            <p> HCMIU</p>
+            <a href="index.php">
+            <img class="hcmiulogo" src="image/hcmiulogo.png" alt="logo"></a>
+            <p> <div onclick="location.href='index.php';" style="display:flex; flex-direction: row; justify-content: center; align-items: center">HCMIU</div></p>
+            
         </div>
         <div class="logout">
         <a href="logout.php"><button class="btn btn-primary">Logout</button></a>
