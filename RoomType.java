@@ -28,7 +28,7 @@ public class RoomType extends javax.swing.JFrame {
     }
     private void DisplayEmp(){
         try{
-            ResultSet rs = Operation.getData("SELECT RoomType.TypeID, RoomType.Name, RoomType.Description, RoomType.Price, RoomType.Capacity, Room.RoomNumber, Room.Status FROM RoomType, Room");
+            ResultSet rs = Operation.getData("SELECT RoomType.TypeID, RoomType.Name, RoomType.Description, RoomType.Price, RoomType.Capacity, Room.RoomNumber, Room.Status FROM RoomType, Room WHERE RoomType.TypeID = Room.TypeID");
             RTTable.setModel(DbUtils.resultSetToTableModel(rs));
         }
         catch (Exception e){
@@ -37,15 +37,15 @@ public class RoomType extends javax.swing.JFrame {
         
     }
     private void GetRoom(){
-        try{
-            ResultSet rs = Operation.getData("SELECT Room.RoomNumber FROM HMS.Room");
-            while (rs.next()){
-            String NoRoom = rs.getString("RoomNumber");
-            RoomNo.addItem(NoRoom);
-            }
-        }
-        catch (Exception e){
-        }
+//        try{
+//            ResultSet rs = Operation.getData("SELECT Room.RoomNumber FROM HMS.Room");
+//            while (rs.next()){
+//            String NoRoom = rs.getString("RoomNumber");
+//            RoomNo.addItem(NoRoom);
+//            }
+//        }
+//        catch (Exception e){
+//        }
     }
     
     public RoomType() {
@@ -102,10 +102,10 @@ public class RoomType extends javax.swing.JFrame {
         PriceLabel = new javax.swing.JLabel();
         PriceBox = new javax.swing.JTextField();
         RoomNumberLabel = new javax.swing.JLabel();
-        RoomNo = new javax.swing.JComboBox<>();
         StatusRoom = new javax.swing.JLabel();
         StatusRoomBox = new javax.swing.JComboBox<>();
         SetStatusRoom = new javax.swing.JButton();
+        RoomNo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1000, 509));
@@ -260,12 +260,6 @@ public class RoomType extends javax.swing.JFrame {
 
         RoomNumberLabel.setText("Room Number");
 
-        RoomNo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RoomNoMouseClicked(evt);
-            }
-        });
-
         StatusRoom.setText("Status");
 
         StatusRoomBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ready", "Cleaning", "Used" }));
@@ -279,6 +273,12 @@ public class RoomType extends javax.swing.JFrame {
         SetStatusRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SetStatusRoomActionPerformed1(evt);
+            }
+        });
+
+        RoomNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RoomNoActionPerformed(evt);
             }
         });
 
@@ -323,8 +323,8 @@ public class RoomType extends javax.swing.JFrame {
                             .addGroup(roomTypeBG4Layout.createSequentialGroup()
                                 .addComponent(RoomNumberLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(RoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(RoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(StatusRoom)
                                 .addGap(18, 18, 18)
                                 .addComponent(StatusRoomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,10 +362,10 @@ public class RoomType extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(roomTypeBG4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RoomNumberLabel)
-                            .addComponent(RoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(StatusRoom)
                             .addComponent(StatusRoomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SetStatusRoom))
+                            .addComponent(SetStatusRoom)
+                            .addComponent(RoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(InfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -400,8 +400,9 @@ public class RoomType extends javax.swing.JFrame {
     private void AddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
         Operation.setOrDel("insert into HMS.RoomType (Name, Description, Price, Capacity)"
                 + " value ('"+RoomList.getSelectedItem()+"','"+DesBox.getText()+"','"+PriceBox.getText()+"','"+BedList.getSelectedItem()+"')","Add room type successfully!");
-        Operation.setOrDel("insert into HMS.Room(TypeID) select TypeID from HMS.RoomType", "");
+        Operation.setOrDel("insert into Room(TypeID) value ((select max(RoomType.TypeID) from RoomType ORDER BY RoomType.TypeID DESC LIMIT 1))", "");
         DisplayEmp();
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_AddEmployeeActionPerformed
 
@@ -416,6 +417,8 @@ public class RoomType extends javax.swing.JFrame {
         InfDes.setText(model.getValueAt(row, 2).toString());
         InfPrice.setText(model.getValueAt(row, 3).toString());
         InfCapacity.setText(model.getValueAt(row, 4).toString());
+        RoomNo.setText(model.getValueAt(row, 5).toString());
+        RoomNo.setEnabled(true);
         setRow(row);
         // TODO add your handling code here:
     }//GEN-LAST:event_RTTableMouseClicked
@@ -427,7 +430,8 @@ public class RoomType extends javax.swing.JFrame {
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
         DefaultTableModel model = (DefaultTableModel)RTTable.getModel();
-        Operation.setOrDel("DELETE FROM HMS.RoomType WHERE TypeID="+model.getValueAt(getRow(), 0), "Remove this room type successfully!");
+        Operation.setOrDel("DELETE FROM HMS.Room WHERE RoomNumber="+model.getValueAt(getRow(), 5), "Remove this room type successfully!");
+        //Operation.setOrDel("DELETE FROM HMS.RoomType WHERE TypeID="+model.getValueAt(getRow(), 0),"");
         DisplayEmp();
         row = -1;
 
@@ -435,7 +439,7 @@ public class RoomType extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
     private void SetStatusRoomActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetStatusRoomActionPerformed1
-        Operation.setOrDel("update Room set Status ='"+StatusRoomBox.getSelectedItem()+"' where RoomNumber = "+RoomNo.getSelectedItem(), "Update Successfully!");
+        Operation.setOrDel("update Room set Status ='"+StatusRoomBox.getSelectedItem()+"' where RoomNumber = "+RoomNo.getText(), "Update Successfully!");
         DisplayEmp();
         // TODO add your handling code here:
     }//GEN-LAST:event_SetStatusRoomActionPerformed1
@@ -444,23 +448,9 @@ public class RoomType extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_StatusRoomBoxActionPerformed
 
-    private void RoomNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RoomNoMouseClicked
+    private void RoomNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomNoActionPerformed
         // TODO add your handling code here:
-        
-        int row = RTTable.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel)RTTable.getModel();  
-        if (model.getValueAt(row, 5)!=null)
-        {
-            RoomNo.setEnabled(true);
-            StatusRoomBox.setEnabled(true);
-        }
-        else
-        {
-            RoomNo.setEnabled(false);
-            StatusRoomBox.setEnabled(false);
-        }
-
-    }//GEN-LAST:event_RoomNoMouseClicked
+    }//GEN-LAST:event_RoomNoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -515,7 +505,7 @@ public class RoomType extends javax.swing.JFrame {
     private javax.swing.JLabel PriceLabel;
     private javax.swing.JTable RTTable;
     private javax.swing.JComboBox<String> RoomList;
-    private javax.swing.JComboBox<String> RoomNo;
+    private javax.swing.JTextField RoomNo;
     private javax.swing.JLabel RoomNumberLabel;
     private javax.swing.JLabel RoomTypeLabel;
     private javax.swing.JButton SetStatusRoom;
