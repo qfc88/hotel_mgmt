@@ -5,7 +5,7 @@
 
 /**
  *
- * @author WOW
+ * @author Group6-PDM
  */
 import java.awt.Dimension;
 import java.awt.Graphics;

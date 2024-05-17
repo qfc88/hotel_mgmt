@@ -14,7 +14,7 @@ import net.proteanit.sql.DbUtils;
 
 /**
  *
- * @author WOW
+ * @author Group6-PDM
  */
 public class RoomType extends javax.swing.JFrame {
 

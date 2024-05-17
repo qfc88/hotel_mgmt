@@ -5,7 +5,7 @@
 
 /**
  *
- * @author WOW
+ * @author Group6-PDM
  */
 import db.Operation;
 import java.awt.Image;

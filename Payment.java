@@ -16,7 +16,7 @@ import net.proteanit.sql.DbUtils;
 
 /**
  *
- * @author WOW
+ * @author Group6-PDM
  */
 public class Payment extends javax.swing.JFrame {
 
@@ -45,6 +45,7 @@ public class Payment extends javax.swing.JFrame {
                     + "FROM Booking, Customer, Room, RoomType, Payment "
                     + "WHERE Booking.CustomerID = Customer.CustomerID "
                     + "AND Booking.RoomNumber = Room.RoomNumber "
+                    + "AND Payment.BookingID = Booking.BookingID "
                     + "AND Room.TypeID = RoomType.TypeID "
                     + "AND Booking.Status = 'Confirm'");
             PayTable.setModel(DbUtils.resultSetToTableModel(rs));
@@ -130,7 +131,7 @@ public class Payment extends javax.swing.JFrame {
         RevenueLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RevenueLabel.setText("Revenue");
 
-        Revenue.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        Revenue.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         Revenue.setToolTipText("");
         Revenue.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
@@ -191,11 +192,14 @@ public class Payment extends javax.swing.JFrame {
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(RevenueLabel)
+                        .addGap(35, 35, 35))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(Revenue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RevenueLabel)
-                    .addComponent(Revenue, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CNameDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CNameLabel))
                 .addGap(18, 18, 18)
@@ -253,8 +257,6 @@ public class Payment extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        PayTable.setCellSelectionEnabled(false);
-        PayTable.setRowSelectionAllowed(true);
         PayTable.getTableHeader().setReorderingAllowed(false);
         PayTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -283,9 +285,8 @@ public class Payment extends javax.swing.JFrame {
                         .addGap(49, 49, 49))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentBG1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         paymentBG1Layout.setVerticalGroup(
             paymentBG1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

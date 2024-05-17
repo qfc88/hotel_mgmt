@@ -19,7 +19,7 @@ import net.proteanit.sql.DbUtils;
 
 /**
  *
- * @author WOW
+ * @author Group6-PDM
  */
 
 public class ManageEmp extends javax.swing.JFrame {

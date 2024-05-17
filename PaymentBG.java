@@ -20,15 +20,15 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class EmpBG extends JPanel{
+public class PaymentBG extends JPanel{
     
-    private Image img = new ImageIcon(getClass().getResource("images/hotellobby.png")).getImage();
+    private Image img = new ImageIcon(getClass().getResource("images/money.png")).getImage();
     
-    public EmpBG() {
+    public PaymentBG() {
         
         Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
         setPreferredSize(size);
-         setMinimumSize(size);
+        setMinimumSize(size);
         setMaximumSize(size);
         setSize(size);
         setLayout(new GridBagLayout());
@@ -38,4 +38,5 @@ public class EmpBG extends JPanel{
     public void paintComponent(Graphics g) {
         g.drawImage(img, 0, 0, null);
     }
+
 }

@@ -20,7 +20,7 @@ import net.proteanit.sql.DbUtils;
 
 /**
  *
- * @author WOW
+ * @author Group6-PDM
  */
 public class ManageBooking extends javax.swing.JFrame {
 
@@ -704,7 +704,7 @@ public class ManageBooking extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
         
         Operation.setOrDel("insert into HMS.Customer (UID, CName, DateOfBirth, Address, Email, Country, Phone) "
-                + "values (0,'"+NameDialogBox.getText()+"','"+formatter.format(DOBDialogBox.getDate())+"','"
+                + "values (1,'"+NameDialogBox.getText()+"','"+formatter.format(DOBDialogBox.getDate())+"','"
         +AddressDialogBox.getText()+ "','"+EmailDialogBox.getText()+"','"+CountryDialogBox.getText()+"','"
         +PhoneDialogBox.getText()+"')", "");
         
@@ -731,7 +731,7 @@ public class ManageBooking extends javax.swing.JFrame {
             
            // int RoomNo = Integer.parseInt(RoomNumberList.getSelectedItem().toString());
         Operation.setOrDel("insert into HMS.Booking (CustomerID, RoomNumber, CheckinDate, CheckoutDate, NoOfDays, Status) "
-                + "values ('"+CustomerID+"',"+RoomNumberList.getSelectedItem()+",'"+formatter.format(CheckInDateBox.getDate())+"','"+formatter.format(CheckOutDateBox.getDate())+""
+                + "values ("+CustomerID+","+RoomNumberList.getSelectedItem()+",'"+formatter.format(CheckInDateBox.getDate())+"','"+formatter.format(CheckOutDateBox.getDate())+""
                         + "',"+NoDays+",'"+StatusList.getSelectedItem()+"')","Reservation successfully!");
         
         //Set Payment
