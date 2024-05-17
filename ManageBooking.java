@@ -51,6 +51,7 @@ public class ManageBooking extends javax.swing.JFrame {
             while (rs.next()){
               
             RoomNumberList.addItem(Integer.toString(rs.getInt("RoomNumber")));
+            RoomNoList.addItem(Integer.toString(rs.getInt("RoomNumber")));
             }
         }
         catch (Exception e){
@@ -121,7 +122,6 @@ public class ManageBooking extends javax.swing.JFrame {
         AddressDialogLabel2 = new javax.swing.JLabel();
         AddressDialogBox1 = new javax.swing.JTextField();
         EmailDialogBox2 = new javax.swing.JTextField();
-        RoomNoDialogBox2 = new javax.swing.JTextField();
         CheckOutDateBox1 = new com.toedter.calendar.JDateChooser();
         DOBDialogLabel2 = new javax.swing.JLabel();
         StatusList1 = new javax.swing.JComboBox<>();
@@ -139,11 +139,12 @@ public class ManageBooking extends javax.swing.JFrame {
         CheckInDateBox1 = new com.toedter.calendar.JDateChooser();
         EmailDialogLabel2 = new javax.swing.JLabel();
         PhoneDialogLabel2 = new javax.swing.JLabel();
+        RoomNoList = new javax.swing.JComboBox<>();
         bookingBG1 = new BookingBG();
         CloseButton = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        BookingPanel = new javax.swing.JScrollPane();
         BookingTable = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        CustomerPanel = new javax.swing.JPanel();
         Icon = new javax.swing.JLabel();
         CNameLabel = new javax.swing.JLabel();
         CName = new javax.swing.JLabel();
@@ -160,8 +161,8 @@ public class ManageBooking extends javax.swing.JFrame {
         EditBtn = new javax.swing.JButton();
         RemoveBtn = new javax.swing.JButton();
         SetBtn = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        StatusSetList = new javax.swing.JComboBox<>();
+        StatusLabel = new javax.swing.JLabel();
         AddBtn = new javax.swing.JButton();
 
         AddBooking.setPreferredSize(new java.awt.Dimension(462, 700));
@@ -267,13 +268,13 @@ public class ManageBooking extends javax.swing.JFrame {
                     .addComponent(DOBDialogLabel)
                     .addComponent(DOBDialogBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(AddBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AddressDialogLabel)
-                    .addComponent(AddressDialogBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(AddBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddressDialogBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddressDialogLabel))
                 .addGap(18, 18, 18)
-                .addGroup(AddBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(EmailDialogLabel)
-                    .addComponent(EmailDialogBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(AddBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EmailDialogBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EmailDialogLabel))
                 .addGap(18, 18, 18)
                 .addGroup(AddBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CountryDialogBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,9 +373,13 @@ public class ManageBooking extends javax.swing.JFrame {
                     .addComponent(EditBookBtn))
                 .addGroup(EditBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(EditBookingLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(ClearBtn1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(CloseBtn1))
+                    .addGroup(EditBookingLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(EditBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(RoomNoDialogBox2)
                             .addComponent(PhoneDialogBox2)
                             .addComponent(CountryDialogBox2)
                             .addComponent(EmailDialogBox2)
@@ -383,12 +388,8 @@ public class ManageBooking extends javax.swing.JFrame {
                             .addComponent(DOBDialogBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                             .addComponent(CheckInDateBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CheckOutDateBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(StatusList1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(EditBookingLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(ClearBtn1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                        .addComponent(CloseBtn1)))
+                            .addComponent(StatusList1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RoomNoList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         EditBookingLayout.setVerticalGroup(
@@ -421,7 +422,7 @@ public class ManageBooking extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(EditBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RoomNoDialogLabel2)
-                    .addComponent(RoomNoDialogBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RoomNoList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(EditBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CheckInDateBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -473,7 +474,7 @@ public class ManageBooking extends javax.swing.JFrame {
                 BookingTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(BookingTable);
+        BookingPanel.setViewportView(BookingTable);
         BookingTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login_64.png"))); // NOI18N
@@ -504,18 +505,18 @@ public class ManageBooking extends javax.swing.JFrame {
 
         Phone.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout CustomerPanelLayout = new javax.swing.GroupLayout(CustomerPanel);
+        CustomerPanel.setLayout(CustomerPanelLayout);
+        CustomerPanelLayout.setHorizontalGroup(
+            CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerPanelLayout.createSequentialGroup()
                 .addContainerGap(107, Short.MAX_VALUE)
                 .addComponent(Icon)
                 .addGap(103, 103, 103))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(CustomerPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(AddressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(DOBLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -523,7 +524,7 @@ public class ManageBooking extends javax.swing.JFrame {
                     .addComponent(CountryLabel)
                     .addComponent(PhoneLabel))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(CName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DOB, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                     .addComponent(Address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -532,42 +533,42 @@ public class ManageBooking extends javax.swing.JFrame {
                     .addComponent(Phone, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        CustomerPanelLayout.setVerticalGroup(
+            CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CustomerPanelLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(Icon)
                 .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CNameLabel)
                     .addComponent(CName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(DOBLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                     .addComponent(DOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AddressLabel))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(EmailLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(CountryLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Country, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(PhoneLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(Phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(48, Short.MAX_VALUE))
@@ -581,6 +582,11 @@ public class ManageBooking extends javax.swing.JFrame {
         });
 
         RemoveBtn.setText("Remove");
+        RemoveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveBtnActionPerformed(evt);
+            }
+        });
 
         SetBtn.setText("Set");
         SetBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -589,11 +595,11 @@ public class ManageBooking extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirm", "Cleaning", " " }));
+        StatusSetList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirm", "Cleaning", "Pending" }));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Status");
+        StatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        StatusLabel.setForeground(new java.awt.Color(255, 255, 255));
+        StatusLabel.setText("Status");
 
         AddBtn.setText("Add/New");
         AddBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -621,15 +627,15 @@ public class ManageBooking extends javax.swing.JFrame {
                                 .addGap(47, 47, 47)
                                 .addComponent(RemoveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(233, 233, 233)
-                                .addComponent(jLabel1)
+                                .addComponent(StatusLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(StatusSetList, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(SetBtn)
                                 .addGap(25, 25, 25))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BookingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(CustomerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(28, 28, 28))
         );
         bookingBG1Layout.setVerticalGroup(
@@ -642,13 +648,13 @@ public class ManageBooking extends javax.swing.JFrame {
                     .addComponent(EditBtn)
                     .addComponent(RemoveBtn)
                     .addComponent(SetBtn)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
+                    .addComponent(StatusSetList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(StatusLabel)
                     .addComponent(AddBtn))
                 .addGap(18, 18, 18)
                 .addGroup(bookingBG1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BookingPanel)
+                    .addComponent(CustomerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -668,6 +674,9 @@ public class ManageBooking extends javax.swing.JFrame {
 
     private void SetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetBtnActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)BookingTable.getModel();
+        Operation.setOrDel("update HMS.Booking set Status = '"+StatusSetList.getSelectedItem()+"' where BookingID ="+model.getValueAt(getRow(),0),"Update room status successfully!");
+        DisplayBook();
     }//GEN-LAST:event_SetBtnActionPerformed
 
     private void AddBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookBtnActionPerformed
@@ -732,6 +741,7 @@ public class ManageBooking extends javax.swing.JFrame {
     private void BookingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BookingTableMouseClicked
         // TODO add your handling code here:
         int row = BookingTable.getSelectedRow();
+        setRow(row);
         DefaultTableModel model = (DefaultTableModel)BookingTable.getModel();
         String a = model.getValueAt(row, 4).toString();
         ResultSet rs = Operation.getData("SELECT Customer.CName, "
@@ -768,8 +778,37 @@ public class ManageBooking extends javax.swing.JFrame {
         // TODO add your handling code here:
         EditBooking.setLocationRelativeTo(null);
         EditBooking.setVisible(true);
-        
+        RoomNoList.removeAllItems();
+        DefaultTableModel model = (DefaultTableModel)BookingTable.getModel();
+        ResultSet rs = Operation.getData("SELECT Customer.CName, "
+                    + "Customer.DateOfBirth, Customer.Address, "
+                    + "Customer.Email, "
+                    + "Customer.Country, Customer.Phone, Booking.RoomNumber, "
+                    + "Booking.NoOfDays, Booking.CheckinDate, Booking.CheckoutDate, Booking.Status "
+                    + "FROM Booking, Customer, Room, RoomType "
+                    + "WHERE Booking.CustomerID = Customer.CustomerID "
+                    + "AND Booking.RoomNumber = Room.RoomNumber "
+                    + "AND Room.TypeID = RoomType.TypeID "
+                + "AND Booking.BookingID ="+model.getValueAt(getRow(), 0));
         getRoomNumber();
+        try {
+            while (rs.next()){
+                
+                NameDialogBox1.setText(rs.getString("CName"));
+                DOBDialogBox1.setDate(rs.getDate("DateOfBirth"));
+                AddressDialogBox1.setText(rs.getString("Address"));
+                EmailDialogBox2.setText(rs.getString("Email"));
+                CountryDialogBox2.setText(rs.getString("Country"));
+                PhoneDialogBox2.setText(rs.getString("Phone"));
+                RoomNoList.setSelectedItem(rs.getInt("RoomNumber"));
+                CheckInDateBox1.setDate(rs.getDate("CheckinDate"));
+                CheckOutDateBox1.setDate(rs.getDate("CheckoutDate"));
+                StatusList1.setSelectedItem(model.getValueAt(getRow(), 7).toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                DisplayBook();
     }//GEN-LAST:event_EditBtnActionPerformed
 
     private void EditBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBookBtnActionPerformed
@@ -778,18 +817,49 @@ public class ManageBooking extends javax.swing.JFrame {
 
     private void CloseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseBtn1ActionPerformed
         // TODO add your handling code here:
+        EditBooking.setVisible(false);
     }//GEN-LAST:event_CloseBtn1ActionPerformed
 
     private void ClearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtn1ActionPerformed
         // TODO add your handling code here:
+                NameDialogBox1.setText("");
+                DOBDialogBox1.setDate(null);
+                AddressDialogBox1.setText("");
+                EmailDialogBox2.setText("");
+                CountryDialogBox2.setText("");
+                PhoneDialogBox2.setText("");
+                RoomNoList.setSelectedIndex(0);
+                CheckInDateBox1.setDate(null);
+                CheckOutDateBox1.setDate(null);
     }//GEN-LAST:event_ClearBtn1ActionPerformed
 
     private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
         AddBooking.setLocationRelativeTo(null);
         AddBooking.setVisible(true);
+        RoomNumberList.removeAllItems();
         getRoomNumber();
         // TODO add your handling code here:
     }//GEN-LAST:event_AddBtnActionPerformed
+
+    private void RemoveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveBtnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)BookingTable.getModel();
+        int BookID = Integer.parseInt(model.getValueAt(getRow(), 0).toString());
+        ResultSet rs = Operation.getData("select CustomerID from Booking where BookingID = "+BookID);
+        int CustomerID = 0;
+        try {
+            while (rs.next()){
+               CustomerID = rs.getInt("CustomerID");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Operation.setOrDel("delete from HMS.Booking where Booking.BookingID ="+BookID, "");
+        
+        Operation.setOrDel("delete from HMS.Customer where Customer.CustomerID ="+CustomerID, "Remove reservation successfully! ");
+        DisplayBook();
+    }//GEN-LAST:event_RemoveBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -836,6 +906,7 @@ public class ManageBooking extends javax.swing.JFrame {
     private javax.swing.JLabel AddressDialogLabel;
     private javax.swing.JLabel AddressDialogLabel2;
     private javax.swing.JLabel AddressLabel;
+    private javax.swing.JScrollPane BookingPanel;
     private javax.swing.JTable BookingTable;
     private javax.swing.JLabel CName;
     private javax.swing.JLabel CNameDialogLabel;
@@ -860,6 +931,7 @@ public class ManageBooking extends javax.swing.JFrame {
     private javax.swing.JLabel CountryDialogLabel;
     private javax.swing.JLabel CountryDialogLabel2;
     private javax.swing.JLabel CountryLabel;
+    private javax.swing.JPanel CustomerPanel;
     private javax.swing.JLabel DOB;
     private com.toedter.calendar.JDateChooser DOBDialogBox;
     private com.toedter.calendar.JDateChooser DOBDialogBox1;
@@ -885,19 +957,17 @@ public class ManageBooking extends javax.swing.JFrame {
     private javax.swing.JLabel PhoneDialogLabel2;
     private javax.swing.JLabel PhoneLabel;
     private javax.swing.JButton RemoveBtn;
-    private javax.swing.JTextField RoomNoDialogBox2;
     private javax.swing.JLabel RoomNoDialogLabel;
     private javax.swing.JLabel RoomNoDialogLabel2;
+    private javax.swing.JComboBox<String> RoomNoList;
     private javax.swing.JComboBox<String> RoomNumberList;
     private javax.swing.JButton SetBtn;
     private javax.swing.JLabel StatusDialogLabel;
     private javax.swing.JLabel StatusDialogLabel2;
+    private javax.swing.JLabel StatusLabel;
     private javax.swing.JComboBox<String> StatusList;
     private javax.swing.JComboBox<String> StatusList1;
+    private javax.swing.JComboBox<String> StatusSetList;
     private BookingBG bookingBG1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
