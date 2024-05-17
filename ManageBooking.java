@@ -676,6 +676,26 @@ public class ManageBooking extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)BookingTable.getModel();
         Operation.setOrDel("update HMS.Booking set Status = '"+StatusSetList.getSelectedItem()+"' where BookingID ="+model.getValueAt(getRow(),0),"Update room status successfully!");
+        //Payment
+                if (StatusSetList.getSelectedItem().equals("Confirm"))
+            Operation.setOrDel("insert into Payment(BookingID) value ("+model.getValueAt(getRow(), 0)+")", "");
+        if (!StatusSetList.getSelectedItem().equals("Confirm"))
+        {
+            int result = 0;
+            ResultSet find = Operation.getData("select COUNT(*) AS RowRecord from Payment where BookingID = "+model.getValueAt(getRow(), 0));
+            try {
+                find.next();
+                result = find.getInt("RowRecord");
+                find.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (result>0){
+            Operation.setOrDel("delete from Payment where BookingID = "+model.getValueAt(getRow(), 0), "");
+            }
+        }
+        
+        
         DisplayBook();
     }//GEN-LAST:event_SetBtnActionPerformed
 
@@ -684,7 +704,7 @@ public class ManageBooking extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
         
         Operation.setOrDel("insert into HMS.Customer (UID, CName, DateOfBirth, Address, Email, Country, Phone) "
-                + "values (9,'"+NameDialogBox.getText()+"','"+formatter.format(DOBDialogBox.getDate())+"','"
+                + "values (0,'"+NameDialogBox.getText()+"','"+formatter.format(DOBDialogBox.getDate())+"','"
         +AddressDialogBox.getText()+ "','"+EmailDialogBox.getText()+"','"+CountryDialogBox.getText()+"','"
         +PhoneDialogBox.getText()+"')", "");
         
@@ -708,12 +728,41 @@ public class ManageBooking extends javax.swing.JFrame {
             TimeUnit time = TimeUnit.MILLISECONDS;
             long NoDays = time.DAYS.convert(diff,TimeUnit.MILLISECONDS);
             
-            System.out.println(NoDays);
             
            // int RoomNo = Integer.parseInt(RoomNumberList.getSelectedItem().toString());
         Operation.setOrDel("insert into HMS.Booking (CustomerID, RoomNumber, CheckinDate, CheckoutDate, NoOfDays, Status) "
                 + "values ('"+CustomerID+"',"+RoomNumberList.getSelectedItem()+",'"+formatter.format(CheckInDateBox.getDate())+"','"+formatter.format(CheckOutDateBox.getDate())+""
                         + "',"+NoDays+",'"+StatusList.getSelectedItem()+"')","Reservation successfully!");
+        
+        //Set Payment
+        int BookID = 0;
+        ResultSet getBID = Operation.getData("select BookingID from HMS.Booking where CustomerID = "+CustomerID);
+        try {
+            getBID.next();
+            BookID = getBID.getInt("BookingID");
+            getBID.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+                if (StatusList.getSelectedItem().equals("Confirm"))
+            Operation.setOrDel("insert into Payment(BookingID) value ("+BookID+")", "");
+        if (!StatusList.getSelectedItem().equals("Confirm"))
+        {
+            int result = 0;
+            ResultSet find = Operation.getData("select COUNT(*) AS RowRecord from Payment where BookingID = "+BookID);
+            try {
+                find.next();
+                result = find.getInt("RowRecord");
+                find.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (result>0){
+            Operation.setOrDel("delete from Payment where BookingID = "+BookID, "");
+            }
+        }
       
         DisplayBook();
     }//GEN-LAST:event_AddBookBtnActionPerformed
@@ -808,6 +857,27 @@ public class ManageBooking extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Add or delete element in Payment
+        
+        if (StatusList1.getSelectedItem().equals("Confirm"))
+            Operation.setOrDel("insert into Payment(BookingID) value ("+model.getValueAt(getRow(), 0)+")", "");
+        if (!StatusList1.getSelectedItem().equals("Confirm"))
+        {
+            int result = 0;
+            ResultSet find = Operation.getData("select COUNT(*) AS RowRecord from Payment where BookingID = "+model.getValueAt(getRow(), 0));
+            try {
+                find.next();
+                result = find.getInt("RowRecord");
+                find.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (result>0){
+            Operation.setOrDel("delete from Payment where BookingID = "+model.getValueAt(getRow(), 0), "");
+            }
+        }
+        
                 DisplayBook();
     }//GEN-LAST:event_EditBtnActionPerformed
 

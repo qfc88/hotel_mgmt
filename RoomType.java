@@ -1,5 +1,7 @@
 
 import db.Operation;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -55,7 +57,20 @@ public class RoomType extends javax.swing.JFrame {
         DisplayEmp();
         GetRoom();
         ModifyBtn.setEnabled(false);
-        
+        RoomList.addActionListener (new ActionListener () {
+        public void actionPerformed(ActionEvent e) {
+        if (RoomList.getSelectedItem().equals("Single Room"))
+            PriceBox.setText("30");
+        if (RoomList.getSelectedItem().equals("Queen Room"))
+            PriceBox.setText("200");
+        if (RoomList.getSelectedItem().equals("Studio Room"))
+            PriceBox.setText("60");
+        if (RoomList.getSelectedItem().equals("Deluxe Room"))
+            PriceBox.setText("100");
+        if (RoomList.getSelectedItem().equals("Superior Room"))
+            PriceBox.setText("300");    
+        }
+        });
         CloseButton3.addMouseListener(new java.awt.event.MouseAdapter()
                 {
                     public void mouseClicked(java.awt.event.MouseEvent e)
@@ -127,7 +142,7 @@ public class RoomType extends javax.swing.JFrame {
 
         RoomTypeLabel.setText("Room Type");
 
-        BedLabel.setText("Bed");
+        BedLabel.setText("Capacity");
 
         RoomList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Superior Room", "Queen Room", "Single Room", "Studio Room", "Deluxe Room" }));
 
@@ -395,9 +410,24 @@ public class RoomType extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+//        Superior Room
+//Queen Room
+//Single Room
+//Studio Room
+//Deluxe Room
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
+        if (RoomList.getSelectedItem().equals("Single Room"))
+            PriceBox.setText("30");
+        if (RoomList.getSelectedItem().equals("Queen Room"))
+            PriceBox.setText("200");
+        if (RoomList.getSelectedItem().equals("Studio Room"))
+            PriceBox.setText("60");
+        if (RoomList.getSelectedItem().equals("Deluxe Room"))
+            PriceBox.setText("100");
+        if (RoomList.getSelectedItem().equals("Superior Room"))
+            PriceBox.setText("300");        
         Operation.setOrDel("insert into HMS.RoomType (Name, Description, Price, Capacity)"
                 + " value ('"+RoomList.getSelectedItem()+"','"+DesBox.getText()+"','"+PriceBox.getText()+"','"+BedList.getSelectedItem()+"')","Add room type successfully!");
         Operation.setOrDel("insert into Room(TypeID) value ((select max(RoomType.TypeID) from RoomType ORDER BY RoomType.TypeID DESC LIMIT 1))", "");
