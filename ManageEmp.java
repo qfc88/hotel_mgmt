@@ -556,8 +556,7 @@ public class ManageEmp extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)EmpTable.getModel();
         String temprole = model.getValueAt(getRow(), 4).toString();
         if (!temprole.equals("manager")){
-            if (!temprole.equals("culi"))
-        {
+
         Operation.setOrDel("DELETE FROM HMS.Employee WHERE EmployeeID="+model.getValueAt(getRow(), 0)+" AND Role!='Manager'", "Remove Employee Successfully!");
         DisplayEmp();
         row = -1;
@@ -565,10 +564,7 @@ public class ManageEmp extends javax.swing.JFrame {
         else                         javax.swing.JOptionPane.showMessageDialog(null,"<html>"
                                 + "<b style=\"color:red\"> Cannot remove manager!</b>"
                                 + "</html>","Message",JOptionPane.ERROR_MESSAGE);
-        }
-        else                         javax.swing.JOptionPane.showMessageDialog(null,"<html>"
-                                + "<b style=\"color:red\"> Cannot remove manager!</b>"
-                                + "</html>","Message",JOptionPane.ERROR_MESSAGE);
+
         // TODO add your handling code here:
     }//GEN-LAST:event_RemoveEmpBtnActionPerformed
     String[] RoleList = new String[]{"Receptionist", "Chef", "Waiter", "Housekeeping", "Reservation","Bell man"};
@@ -620,8 +616,6 @@ public class ManageEmp extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)EmpTable.getModel();
         String a = model.getValueAt(row, 4).toString();
         if (!a.equals("manager")){
-            if (!a.equals("culi"))
-            {
 
                 FNameBox1.setText(model.getValueAt(row, 1).toString());
                 MNameBox1.setText(model.getValueAt(row, 2).toString());
@@ -633,8 +627,7 @@ public class ManageEmp extends javax.swing.JFrame {
                 int RoleIndex = Arrays.asList(RoleList).indexOf(a);
                 RoleSelect1.setSelectedIndex(RoleIndex);
                 SaveEmpBtn1.setEnabled(true);
-            }
-            else SaveEmpBtn1.setEnabled(false);
+
         }
         else SaveEmpBtn1.setEnabled(false);
         setRow(row);
