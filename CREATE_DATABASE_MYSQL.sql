@@ -1,5 +1,6 @@
 CREATE DATABASE HMS;
 USE HMS;
+
 CREATE TABLE Hotel (
     HotelID INT PRIMARY KEY default 10,
     Name VARCHAR(50) default 'HCMIU',
@@ -14,7 +15,9 @@ CREATE TABLE RoomType (
     Name VARCHAR(50),
     Description VARCHAR(255),
     Price DECIMAL(10, 2),
-    Capacity INT
+    Capacity INT,
+    HotelID INT default 10,
+    FOREIGN KEY (HotelID) references Hotel(HotelID)
 );
 
 CREATE TABLE Room (
@@ -26,7 +29,7 @@ CREATE TABLE Room (
 
 CREATE TABLE Employee (
 	EmployeeID INT not null PRIMARY KEY auto_increment,
-	HotelID INT,
+	HotelID INT default 10,
 	FirstName VARCHAR(25),
 	MiddleName VARCHAR(25),
 	LastName VARCHAR(25) NOT NULL,
@@ -57,7 +60,7 @@ CREATE TABLE User(
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY not null auto_increment,
     UID INT NOT NULL,
-    Name VARCHAR(50) NOT NULL,
+    CName VARCHAR(50) NOT NULL,
     DateOfBirth DATE,
     Address VARCHAR(70),
     Email VARCHAR(70),
@@ -75,11 +78,12 @@ CREATE TABLE Booking (
     NoOfDays INT,
     Status VARCHAR(10),
     TotalPrice DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    foreign key (RoomNumber) references Room(RoomNumber)
 );
 
  CREATE TABLE Payment (
-    PaymentID INT PRIMARY KEY,
+    PaymentID INT PRIMARY KEY auto_increment,
     BookingID INT NOT NULL,
     Amount DECIMAL(10, 2),
     PaymentDate DATE,
