@@ -77,7 +77,6 @@ CREATE TABLE Booking (
     CheckoutDate DATE,
     NoOfDays INT,
     Status VARCHAR(10),
-    TotalPrice DECIMAL(10, 2),
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
     foreign key (RoomNumber) references Room(RoomNumber)
 );
