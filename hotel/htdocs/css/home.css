@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Cookie&family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+:root {
+    --bg-text-shadow: 0 2px 4px rgb(13 0 77 / 8%), 0 3px 6px rgb(13 0 77 / 8%), 0 8px 16px rgb(13 0 77 / 8%);
+    --bg-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.621);
+}
+*::-webkit-scrollbar{
+    width: .4rem;
+}
+*::-webkit-scrollbar-track{
+    background: rgb(6, 6, 44);
+}
+*::-webkit-scrollbar-thumb{
+    background: #0040ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    /* text-shadow: var(--bg-text-shadow); */
+}
+
+nav{
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.279);
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 100px;
+    /* box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.386); */
+}
+
+nav ul{
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+    color: black;
+}
+
+ul li a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+ul li{
+    color: black;
+    text-decoration: none;
+    list-style: none;
+    cursor: pointer;
+}
+
+ul li:hover::after{
+    content: "";
+    position: absolute;
+    display: flex;
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    /* display: none; */
+    transition: ease 2s;
+}
+
+ul li a:hover{
+    color: black;
+}
+
+.logo {
+    height: 90%;
+    display: flex;
+    justify-content: center;
+}
+.logo .hcmiulogo {
+    height: 100%;
+}
+
+.logo p {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    color: rgb(66, 68, 74);
+    text-shadow: var(--bg-text-shadow);
+}
+
+#firstsection{
+    height: 100vh;
+    background-color: rgba(175, 175, 222, 0.511);
+    width: 100%;
+    /* z-index: 2000; */
+}
+
+#firstsection .carousel-inner{
+    width: 100%;
+    height: 100vh;
+    /* padding: 0 50px; */
+}
+#firstsection .carousel-inner::after{
+    content: "";
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(178, 170, 236, 0.533);
+}
+
+#firstsection .carousel-item{
+    overflow: hidden;
+}
+
+#firstsection .carousel-item img{
+    width: 100%;
+    height: 100vh;
+}
+
+
+#firstsection .welcomeline{
+    position: absolute; 
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#firstsection .welcometag{
+    font-size: 90px;
+    font-weight: bold;
+    font-family: 'montserrat', sans-serif;
+    letter-spacing: 2px;
+    line-height: 100px;
+    padding: 5px;
+    /* text gradiant */
+    background:  rgb(163, 30, 39);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* secondsection */
+
+#secondsection{
+    height: 100vh;
+}
+
+#secondsection img{
+    /* background-size: cover; */
+    height: 100vh;
+    width: 100%;
+    filter: blur(20px);
+    position: absolute;
+    /* -webkit-backdrop-filter: blur(30px);  */
+    z-index: -2;
+}
+
+.ourroom{
+    position: relative;
+    top: 90px;
+    height: 400px;
+    width: 100%;
+    /* background-color: #0040ff; */
+}
+
+.head{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.roomselect{
+    display: flex;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.roomselect .roombox{
+    height: 100%;
+    width: 300px;
+    background-color: rgb(8, 8, 48);
+    border-radius: 10px;
+    overflow: hidden;
+    /* margin: 0 20px; */
+}
+
+.hotelphoto{
+    height: 250px;
+    width: 100%;
+    background-color: aquamarine;
+    background-size: cover;
+}
+
+.superior{
+    background-image: url(../image/superior.jpg);
+}
+.deluxe{
+    background-image: url(../image/deluxe-room1.jpg);
+}
+.twin{
+    background-image: url(../image/twin-room.jpg);
+}
+.single{
+    background-image: url(../image/single.jpg);
+}
+.queen{
+    background-image: url(../image/queenroom.jpg);
+}
+
+.roomdata{
+    text-align: center;
+}
+
+.roomdata h2{
+color: rgb(207, 211, 255);
+font-size: 30px;
+}
+
+.sevices{
+    display: flex;
+}
+
+.services i{
+    color:white;
+    margin: 7px;
+}
+
+.bookbtn{
+   margin: 10px;
+}
+
+/* roombookcss */
+
+#guestdetailpanel{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.558);
+    position: fixed;
+    z-index: 10000;
+}
+
+#loginpanel{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.558);
+    position: fixed;
+    z-index: 10000;
+}
+
+.logoutbtn{
+    height: 20px;
+    width: 200px;
+    background-color: rgba(216, 19, 19, 0.804);
+}
+
+.dashboard button{
+    height: 40px;
+    width: 120px;
+    background-color: rgba(228, 24, 24, 0.789);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+#thirdsection{
+    height: 80vh;
+    width: 100%;
+    /* background-color: black; */
+}
+
+.service{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.service .box{
+    height: 100%;
+    width: 310px;
+    border: 2px solid white;
+    background-color: #0040ff;
+}
+
+.service .box h2{
+    text-align: center;
+    position: relative;
+    top: 80%;
+    color: white;
+    background-color: #0000005e;
+}
+
+.box:nth-child(1){
+    background-image: url(../image/swimingpool.jpg);
+    background-size: cover;
+}
+.box:nth-child(2){
+    background-image: url(../image/spa.png);
+    background-size: cover;
+}
+.box:nth-child(3){
+    background-image: url(../image/food.jpg);
+    background-size: cover;
+}
+.box:nth-child(4){
+    background-image: url(../image/gym.jpg);
+    background-size: cover;
+}
+.box:nth-child(5){
+    background-image: url(../image/roomsv.png);
+    background-size: cover
+}
+
+.map {
+    padding-bottom: 50%;
+    position: relative;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+      
+}
+
+.map iframe {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+
+}
+
+
+
+#contactus{
+    height: 70px;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:0 100px;
+}
+
+#contactus .social{
+    width: 200px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#contactus i{
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#contactus .createdby{
+    color: white;
+}
+
+/* responsive stuff */
+
+@media(max-width: 30rem){
+    nav{
+        justify-content: center;
+        position: relative;
+        background-color: #96a8f88c;
+    }
+    nav ul{
+        display: none;
+    }
+    #firstsection{
+        height: 50vh;
+        text-align: center;
+    }
+    #firstsection .carousel-inner{
+        height: 50vh;
+    }
+    #firstsection .carousel-inner::after{
+        height: 50vh;
+    }
+    #firstsection .carousel-item img{
+        height: 50vh;
+    }
+    #firstsection .welcomeline{
+        height: 50vh;
+        
+    }
+    #firstsection .welcometag{
+        text-align: center;
+        font-size: 50px;
+        line-height: 60px;
+    }
+    #secondsection{
+        height: auto;
+    }
+    #secondsection{
+        height: 240vh;
+    }
+    #secondsection img{
+        display: none;
+    }
+    .ourroom{
+        top: 30px;
+        height: auto;
+    }
+    .roomselect{
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .roomselect .roombox{
+        width: 75%;
+    }
+
+
+    #thirdsection{
+        height: 100vh;
+    }
+    .service{
+        height: 70%;
+        flex-wrap: wrap;
+    }
+    .service .box{
+        margin: 0;
+        padding: 0;
+        height: 55%;
+        width: 50%; 
+    }
+
+    .service .box h2{
+        font-size: 18px;
+        flex-wrap: wrap;
+    }
+    
+    .box:nth-child(5){
+        display: none;
+    }
+
+    #contactus{
+        padding: 0 30px;
+    }
+    .aboutus {
+        -ms-flex-align: stretch;
+        -ms-flex-direction: column;
+        -ms-flex-negative: 0;
+        -ms-flex-preferred-size: auto;
+        -webkit-align-items: stretch;
+        -webkit-box-align: stretch;
+        -webkit-box-direction: normal;
+        -webkit-box-orient: vertical;
+        -webkit-flex-basis: auto;
+        -webkit-flex-direction: column;
+        -webkit-flex-shrink: 0;
+        align-items: stretch;
+        border: 0 solid black;
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-basis: auto;
+        flex-direction: column;
+        flex-shrink: 0;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        min-height: 0px;
+        min-width: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        position: relative;
+        z-index: 0;
+    }
+
+     
+}
