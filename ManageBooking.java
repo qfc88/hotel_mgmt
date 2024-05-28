@@ -913,13 +913,13 @@ public class ManageBooking extends javax.swing.JFrame {
                                 + ", Address = '"+AddressDialogBox1.getText()+"', "
                                         + "Email = '"+EmailDialogBox2.getText()+"', "
                 + "Country='"+PhoneDialogBox2.getText()+"',"
-                        + "Phone = '"+PhoneDialogBox2.getText()+"',"
+                        + "Phone = '"+PhoneDialogBox2.getText()+"' "
                                 + " where CustomerID ="+tempCustomerID, "");
                 Operation.setOrDel("update Booking set RoomNumber = "+RoomNoList.getSelectedItem()+", "
                         + "CheckinDate = '"+formatter.format(CheckInDateBox1.getDate())+","
                                 + "CheckoutDate = '"+formatter.format(CheckOutDateBox1.getDate())+"', "
                                         + "NoOfDays = "+NoDays+" ,"
-                                                + "Status = '"+StatusList1.getSelectedItem()+"'", "Modify successfully!");
+                                                + "Status = '"+StatusList1.getSelectedItem()+"' where CustomerID = "+tempCustomerID, "Modify successfully!");
     }//GEN-LAST:event_EditBookBtnActionPerformed
 
     private void CloseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseBtn1ActionPerformed
