@@ -885,6 +885,41 @@ public class ManageBooking extends javax.swing.JFrame {
 
     private void EditBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBookBtnActionPerformed
         // TODO add your handling code here:
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                DefaultTableModel model = (DefaultTableModel)BookingTable.getModel();
+        ResultSet rs = Operation.getData("SELECT Customer.CustomerID "
+                    + "FROM Booking, Customer, Room, RoomType "
+                    + "WHERE Booking.CustomerID = Customer.CustomerID "
+                    + "AND Booking.RoomNumber = Room.RoomNumber "
+                    + "AND Room.TypeID = RoomType.TypeID "
+                + "AND Booking.BookingID ="+model.getValueAt(getRow(), 0));
+        int tempCustomerID = 0;
+        try {
+            rs.next();
+                    tempCustomerID = rs.getInt("CustomerID");
+        rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageBooking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+                    Date ckin = CheckInDateBox1.getDate();
+            Date ckout = CheckOutDateBox1.getDate();
+            long diff = ckout.getTime() - ckin.getTime();
+            TimeUnit time = TimeUnit.MILLISECONDS;
+            long NoDays = time.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+        
+                Operation.setOrDel("update Customer set CName = '"+NameDialogBox1.getText()+"', "
+                        + "DateOfBirth='"+formatter.format(DOBDialogBox1.getDate())+"'"
+                                + ", Address = '"+AddressDialogBox1.getText()+"', "
+                                        + "Email = '"+EmailDialogBox2.getText()+"', "
+                + "Country='"+PhoneDialogBox2.getText()+"',"
+                        + "Phone = '"+PhoneDialogBox2.getText()+"',"
+                                + " where CustomerID ="+tempCustomerID, "");
+                Operation.setOrDel("update Booking set RoomNumber = "+RoomNoList.getSelectedItem()+", "
+                        + "CheckinDate = '"+formatter.format(CheckInDateBox1.getDate())+","
+                                + "CheckoutDate = '"+formatter.format(CheckOutDateBox1.getDate())+"', "
+                                        + "NoOfDays = "+NoDays+" ,"
+                                                + "Status = '"+StatusList1.getSelectedItem()+"'", "Modify successfully!");
     }//GEN-LAST:event_EditBookBtnActionPerformed
 
     private void CloseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseBtn1ActionPerformed
