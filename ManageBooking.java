@@ -733,7 +733,9 @@ public class ManageBooking extends javax.swing.JFrame {
         Operation.setOrDel("insert into HMS.Booking (CustomerID, RoomNumber, CheckinDate, CheckoutDate, NoOfDays, Status) "
                 + "values ("+CustomerID+","+RoomNumberList.getSelectedItem()+",'"+formatter.format(CheckInDateBox.getDate())+"','"+formatter.format(CheckOutDateBox.getDate())+""
                         + "',"+NoDays+",'"+StatusList.getSelectedItem()+"')","Reservation successfully!");
-        
+        String tempStatus = (String)StatusList.getSelectedItem();
+        if (tempStatus.equals("Confirm"))
+        Operation.setOrDel("update Room set Status = 'Used' where RoomNumber = "+RoomNumberList.getSelectedItem(),"");
         //Set Payment
         int BookID = 0;
         ResultSet getBID = Operation.getData("select BookingID from HMS.Booking where CustomerID = "+CustomerID);

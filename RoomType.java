@@ -460,7 +460,10 @@ public class RoomType extends javax.swing.JFrame {
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
         DefaultTableModel model = (DefaultTableModel)RTTable.getModel();
-        Operation.setOrDel("DELETE FROM HMS.Room WHERE RoomNumber="+model.getValueAt(getRow(), 5), "Remove this room type successfully!");
+        if (!model.getValueAt(getRow(),6).equals("Used"))
+        Operation.setOrDel("DELETE FROM HMS.Room WHERE RoomNumber="+model.getValueAt(getRow(), 5)+" AND Room", "Remove this room type successfully!");
+        else 
+            JOptionPane.showMessageDialog(null, "Please remove booking before removing this room.");
         //Operation.setOrDel("DELETE FROM HMS.RoomType WHERE TypeID="+model.getValueAt(getRow(), 0),"");
         DisplayEmp();
         row = -1;
