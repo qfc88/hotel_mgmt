@@ -916,7 +916,7 @@ public class ManageBooking extends javax.swing.JFrame {
                         + "Phone = '"+PhoneDialogBox2.getText()+"' "
                                 + " where CustomerID ="+tempCustomerID, "");
                 Operation.setOrDel("update Booking set RoomNumber = "+RoomNoList.getSelectedItem()+", "
-                        + "CheckinDate = '"+formatter.format(CheckInDateBox1.getDate())+","
+                        + "CheckinDate = '"+formatter.format(CheckInDateBox1.getDate())+"' ,"
                                 + "CheckoutDate = '"+formatter.format(CheckOutDateBox1.getDate())+"', "
                                         + "NoOfDays = "+NoDays+" ,"
                                                 + "Status = '"+StatusList1.getSelectedItem()+"' where CustomerID = "+tempCustomerID, "Modify successfully!");
