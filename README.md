@@ -16,14 +16,14 @@ This is a simple app allows visitors to choose their personal profolio and make 
 
 | Order |         Name          |                             Task                                         | Contribution |
 |:-----:|:---------------------:|:------------------------------------------------------------------------:|:------------:|
-|   1   |       [Nguyễn Nam](https://github.com/NNamTaj)      | N/A                                                                      |              |
-|   2   |    [Đỗ Minh Hiếu](https://github.com/Heiusdo)       | N/A                                                                      |              |
-|   3   |  [Nguyễn Trần Bảo Khang](https://github.com/TommyKhang)| N/A                                                                      |              |
-|   4   |    [Trần Thanh Phương](https://github.com/monkeyphuong)  | N/A                                                                      |              |
-|   5   |     [Trần Quang Phước](https://github.com/qfc88)  | N/A                                                                      |              |
-|   6   |  [Nguyễn Anh Minh](https://github.com/MinhNgywn2318)      | N/A                                                                      |              |
-|   7   |     [Lê Thị Hậu](https://github.com/Haule1923)        | N/A                                                                      |              |
-|   8   | [Nguyễn Mai Anh Nam](https://github.com/camcam711)    | N/A                                                                      |              |
+|   1   |       [Nguyễn Nam](https://github.com/NNamTaj)      | N/A                                                                      |       12.5       |
+|   2   |    [Đỗ Minh Hiếu](https://github.com/Heiusdo)       | N/A                                                                      |        12.5      |
+|   3   |  [Nguyễn Trần Bảo Khang](https://github.com/TommyKhang)| N/A                                                                      |         12.5     |
+|   4   |    [Trần Thanh Phương](https://github.com/monkeyphuong)  | N/A                                                                      |          12.5    |
+|   5   |     [Trần Quang Phước](https://github.com/qfc88)  | N/A                                                                      |       12.5       |
+|   6   |  [Nguyễn Anh Minh](https://github.com/MinhNgywn2318)      | N/A                                                                      |    12.5          |
+|   7   |     [Lê Thị Hậu](https://github.com/Haule1923)        | N/A                                                                      |       12.5       |
+|   8   | [Nguyễn Mai Anh Nam](https://github.com/camcam711)    | N/A                                                                      |       12.5       |
 
 # Features
 
