@@ -27,7 +27,14 @@ This is a simple app allows visitors to choose their personal profolio and make 
 
 # Features
 
-
+➢ Make a reservation: Make a reservation for a customer by taking all the information about 
+customers and by checking the availability of rooms in the hotel. 
+➢ Room Status: User can check the status of the room in the hotel ie. the number of rooms which 
+are vacant, and which are non-vacant. 
+➢ Check in and use of facilities: After making reservation, customer can check-in in the hotel 
+and can use all the facilities available in the hotel like restaurant, laundry, tea etc. 
+➢ Check out: Now the staff can calculate the total bill of customers and show it to customers at 
+the time of customer checkout. 
 
 
 
