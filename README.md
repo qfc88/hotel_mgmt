@@ -1,8 +1,6 @@
 ㅤ<h1 align="center">
   [![Contributors][contributors-shield]][contributors-url]
-  [![Forks][forks-shield]][forks-url]
-  [![Stargazers][stars-shield]][stars-url]
-  [![Issues][issues-shield]][issues-url]
+
 </h1> 
 
 # Introduction
